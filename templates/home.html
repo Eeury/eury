@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Eury</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <div class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">Clautas Eury</div>
+        <nav>
+            <ul>
+                <li><a href="#home" class="active" data-section="home"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#about" data-section="about"><i class="fas fa-user"></i> About Me</a></li>
+                <li><a href="#service" data-section="service"><i class="fas fa-briefcase"></i> Service</a></li>
+                <li><a href="#review" data-section="review"><i class="fas fa-star"></i> Review</a></li>
+                <li><a href="#portfolio" data-section="portfolio"><i class="fas fa-folder-open"></i> Portfolio</a></li>
+                <li><a href="#contact" data-section="contact"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Hero Section (Home) -->
+        <section id="home" class="hero">
+            <div class="hero-text">
+                <h1>HI, I'M EURY!<br /></h1>
+                <p>
+                    A Teacher, programmer, and a designer. By day, I mold young minds with the patience of a saint and salary of a medieval servent.
+                    By, night, I code flawless web apps that crash right on launch and call it "testing".
+                    And for fun I design stunning visuals that clients will obviously later redesign into whatever they actually wanted.
+                    Truly living the dream: overqualified, underpaid, and caffeinated enough to 'fix' the world one ironic commit at a time
+                </p>
+            </div>
+            <div class="hero-image">
+                <img src="{% static 'images/profile.png' %}" alt="Profile picture" />
+                <div class="blob"></div>
+            </div>
+        </section>
+
+        <!-- Dynamic Sections -->
+        <section id="about-section" class="dynamic-section">
+            <h2>About Me</h2>
+            <p>I’m Eury — a programmer and creative teacher with just enough years of experience to confidently claim I “craft intuitive digital experiences.”
+                 I specialize in taking perfectly chaotic ideas and translating them into user-friendly outputs that almost work exactly as intended.
+                  My mission is simple: make technology feel effortless for users, while quietly absorbing the existential weight of making it all look obvious.
+                 The goal is engagement, clarity, and the illusion that this was easy all along.</p>
+            <button class="back-btn" data-section="home"><i class="fas fa-arrow-left"></i> Back to Home</button>
+        </section>
+
+        <section id="service-section" class="dynamic-section">
+            <h2>My Services</h2>
+            <p>I offer basic web development, custom branding, and digital strategy consulting because
+                 every everyday problem clearly needs a website, a logo, and a meeting. </p>
+            <button class="back-btn" data-section="home"><i class="fas fa-arrow-left"></i> Back to Home</button>
+        </section>
+
+        <section id="review-section" class="dynamic-section">
+            <div class="reviews">
+                <h2>Client Reviews</h2>
+                <div class="review-grid" id="reviewGrid">
+                    <!-- Reviews will be injected here -->
+                </div>
+
+                <!-- Enhanced Review Form -->
+                <div class="review-form">
+                    <h3>Leave Your Review</h3>
+                    <div class="form-group" id="nameGroup">
+                        <label for="reviewName">Your Name *</label>
+                        <input type="text" id="reviewName" placeholder="Enter your name" />
+                        <div class="error-message">Name is required</div>
+                    </div>
+
+                    <div class="form-group" id="titleGroup">
+                        <label for="reviewTitle">Your Title / Company *</label>
+                        <input type="text" id="reviewTitle" placeholder="e.g. CEO at TechStart" />
+                        <div class="error-message">Title/Company is required</div>
+                    </div>
+
+                    <div class="form-group" id="textGroup">
+                        <label for="reviewText">Your Review *</label>
+                        <textarea id="reviewText" placeholder="Share your experience working with me..."></textarea>
+                        <div class="error-message">Review text is required (min. 20 characters)</div>
+                    </div>
+
+                    <button id="submitReview">Submit Review</button>
+                </div>
+            </div>
+            <button class="back-btn" data-section="home"><i class="fas fa-arrow-left"></i> Back to Home</button>
+        </section>
+
+        <section id="portfolio-section" class="dynamic-section">
+            <h2>Portfolio</h2>
+            {% if portfolio_items %}
+            <div class="portfolio-grid">
+                {% for item in portfolio_items %}
+                <div class="portfolio-card">
+                    <div class="portfolio-thumb">
+                        {% if item.image %}
+                        <img src="{{ item.image.url }}" alt="{{ item.title }}" loading="lazy" />
+                        {% endif %}
+                    </div>
+                    <div class="portfolio-meta">
+                        <div class="portfolio-title">{{ item.title }}</div>
+                        <div class="portfolio-desc">{{ item.description }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="portfolio-empty">Portfolio items will appear here once added.</p>
+            {% endif %}
+            <button class="back-btn" data-section="home"><i class="fas fa-arrow-left"></i> Back to Home</button>
+        </section>
+
+        <section id="contact-section" class="dynamic-section">
+            <h2>Get In Touch</h2>
+            <p>Email: callmeeury@gmail.com | Let's bring your ideas to life!</p>
+            <div class="contact-grid">
+                <a class="contact-card" href="https://wa.me/254757592565" target="_blank" rel="noopener">
+                    <div class="contact-icon whatsapp"><i class="fab fa-whatsapp"></i></div>
+                    <div class="contact-label">WhatsApp</div>
+                    <div class="contact-hint">Chat with me</div>
+                </a>
+                <a class="contact-card" href="https://www.linkedin.com/in/eury" target="_blank" rel="noopener">
+                    <div class="contact-icon linkedin"><i class="fab fa-linkedin"></i></div>
+                    <div class="contact-label">LinkedIn</div>
+                    <div class="contact-hint">Connect professionally</div>
+                </a>
+                <a class="contact-card" href="mailto:callmeeury@gmail.com">
+                    <div class="contact-icon email"><i class="fas fa-envelope"></i></div>
+                    <div class="contact-label">Email</div>
+                    <div class="contact-hint">callmeeury@gmail.com</div>
+                </a>
+                <a class="contact-card" href="https://github.com/Eeury" target="_blank" rel="noopener">
+                    <div class="contact-icon github"><i class="fab fa-github"></i></div>
+                    <div class="contact-label">GitHub</div>
+                    <div class="contact-hint">View my code</div>
+                </a>
+            </div>
+            <button class="back-btn" data-section="home"><i class="fas fa-arrow-left"></i> Back to Home</button>
+        </section>
+
+    </main>
+
+    {{ reviews|json_script:"initial-reviews-data" }}
+    <script src="{% static 'script.js' %}"></script>
+</body>
+</html>
+

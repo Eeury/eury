@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: profile-site
+    env: python
+    buildCommand: ./build.sh
+    startCommand: gunicorn profile_site.wsgi:application
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: DJANGO_SECRET_KEY
+        sync: false
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+    healthCheckPath: /
+    plan: free
+
