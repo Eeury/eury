@@ -1,10 +1,14 @@
 from django.db import models
-
+from cloudinary.models import CloudinaryField
 
 class PortfolioItem(models.Model):
     title = models.CharField(max_length=150)
     description = models.TextField()
-    image = models.ImageField(upload_to='portfolio/', blank=True, null=True)
+    image = CloudinaryField(
+        'image',
+        blank=True,
+        null=True
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
